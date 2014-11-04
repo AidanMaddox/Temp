@@ -1,0 +1,31 @@
+#include <Adafruit_NeoPixel.h>  // includes the neccisary librarys
+#include <LiquidCrystal.h>
+
+#define PIN 6//sets the neopixel pin
+
+LiquidCrystal lcd(12,11,5,4,3,2);//sets the pins that the lcd screen will use
+
+int value;//variable that stores the value of the temp sensor
+
+int pixels[3] = {0,1,2};
+float values[5];//creates an array that stores 5 values
+
+int average = 0; //variable that is set to the average
+
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(5, PIN, NEO_GRB + NEO_KHZ800);   //new neo pixel strip
+
+
+
+int tempPin = 0; // sets the arduino pin for the temp sensor to analog pin 0
+
+
+void setup()//every thing inside the setup will run once
+{
+  lcd.begin(16,2); //initializes the lcd
+  lcd.print("hi");
+  Serial.begin(9600);//initializes the serial monitor
+  strip.begin();//turns the neopixels on
+  strip.setBrightness(75);//sets the neopixels brightness 0-255
+  strip.show();//clears all the neopixels
+
+}

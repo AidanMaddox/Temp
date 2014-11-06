@@ -1,0 +1,51 @@
+void loop()//everything in the void loop will run indefinatly
+{
+
+  for(int i = 0 ; i<5 ; i++){ //for loop that will run 5 times counting 0,1,2,3,4
+    value = analogRead(tempPin);//reads the value of the temp sensor
+    values[i] = value; //saves that value into the array in the place of value i wich is 0,1,2,3,4
+  }
+
+/*calls apon all the values in the array. 
+Adds them then divides them by 5 to create an average.
+Then divides them by a number to give you the actual temp.
+The number may need to be changed if it is giving you an incorect reading.
+ */
+  average = ((values[0]+values[1]+values[2]+values[3]+values[4])/5)/2.1267605634;
+  Serial.print("Temp Equals  ");//This line and the next prints the same thing that would be printed on the lcd to the computer
+  Serial.println(average);
+  Serial.println(values[0]);
+  Serial.println(values[1]);
+  //if statment that sets the neopixels to blue if it is to cold
+  if(average<65){
+    strip.setPixelColor(0,0,0,255);
+    strip.setPixelColor(1,0,0,255);
+    strip.setPixelColor(2,0,0,255);
+    strip.show();
+  }
+  
+  //if statment that sets the neopixel;s to green if the temp is within the good temp range in this case between 65 and 75
+  if(average>=65 && average<=75){
+    strip.setPixelColor(0,0,255,0);
+    strip.setPixelColor(1,0,255,0);
+    strip.setPixelColor(2,0,255,0);
+    strip.show();
+  }
+  
+  //sets the neopixels to red if it is to hot
+  if(average>75){
+    strip.setPixelColor(0,255,0,0);
+    strip.setPixelColor(1,255,0,0);
+    strip.setPixelColor(2,255,0,0);
+    strip.show();
+  }
+  //Prints all the data collected to the lcd
+  lcd.setCursor(0,0);
+  lcd.print("Temp = ");
+  lcd.print(average);
+  lcd.print("*F");
+  
+  delay(1000);//delays the entire program 1 second to slow down how quickly everything happens
+
+}
+
